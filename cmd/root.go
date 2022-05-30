@@ -25,7 +25,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(allCmd, heightCmd, infoCmd, peersCmd)
 
-	rootCmd.Flags().StringVarP(&rootCmdFlags.rpc, "rpc", "r", "localhost:10102", "address of the node")
+	rootCmd.PersistentFlags().StringVarP(&rootCmdFlags.rpc, "rpc", "r", "localhost:10102", "address of the node")
 }
 
 func Execute() error {
