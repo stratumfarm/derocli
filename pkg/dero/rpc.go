@@ -16,6 +16,7 @@ import (
 type Client struct {
 	conn *websocket.Conn
 	rpc  *jrpc2.Client
+	io   *rwc.ReadWriteCloser
 }
 
 func New(addr string) (*Client, error) {
@@ -26,11 +27,13 @@ func New(addr string) (*Client, error) {
 	inputOutput := rwc.New(conn)
 	return &Client{
 		conn: conn,
+		io:   inputOutput,
 		rpc:  jrpc2.NewClient(channel.RawJSON(inputOutput, inputOutput), nil),
 	}, nil
 }
 
 func (c *Client) Close() error {
+	c.io.Close()
 	return c.conn.Close()
 }
 
