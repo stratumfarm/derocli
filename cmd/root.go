@@ -37,7 +37,7 @@ func prettyPrint(data any) {
 	if err != nil {
 		log.Fatalln(fmt.Errorf("failed to marshal: %w", err))
 	}
-	log.Println(string(b))
+	fmt.Println(string(b))
 }
 
 func connectNode(cmd *cobra.Command, args []string) error {
