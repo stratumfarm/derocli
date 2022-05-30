@@ -2,9 +2,12 @@ package cmd
 
 import (
 	"context"
+	"time"
 
 	"github.com/spf13/cobra"
 )
+
+var timeout = time.Second * 5
 
 var allCmd = &cobra.Command{
 	Use:     "all",
@@ -15,22 +18,32 @@ var allCmd = &cobra.Command{
 }
 
 func all(cmd *cobra.Command, args []string) error {
-	height, err := client.GetHeight(context.Background())
+
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
+	height, err := client.GetHeight(ctx)
 	if err != nil {
 		return err
 	}
 	prettyPrint(height)
 
-	info, err := client.GetInfo(context.Background())
+	info, err := client.GetInfo(ctx)
 	if err != nil {
 		return err
 	}
 	prettyPrint(info)
 
-	peers, err := client.GetPeers(context.Background())
+	peers, err := client.GetPeers(ctx)
 	if err != nil {
 		return err
 	}
 	prettyPrint(peers)
+
+	txPool, err := client.GetTxPool(ctx)
+	if err != nil {
+		return err
+	}
+	prettyPrint(txPool)
 	return nil
 }

@@ -68,3 +68,10 @@ func (c *Client) GetPeers(ctx context.Context) (*derop2p.PeersInfo, error) {
 	}
 	return res, nil
 }
+func (c *Client) GetTxPool(ctx context.Context) (derorpc.GetTxPool_Result, error) {
+	res := new(derorpc.GetTxPool_Result)
+	if err := c.rpc.CallResult(context.Background(), "DERO.GetTxPool", nil, res); err != nil {
+		return *res, fmt.Errorf("failed to call: %w", err)
+	}
+	return *res, nil
+}
