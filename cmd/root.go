@@ -9,14 +9,19 @@ import (
 	mcobra "github.com/muesli/mango-cobra"
 	"github.com/muesli/roff"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"github.com/stratumfarm/derocli/internal/config"
 	"github.com/stratumfarm/derocli/internal/version"
 	"github.com/stratumfarm/derocli/pkg/dero"
 )
 
-var client *dero.Client
+var (
+	client *dero.Client
+	cfg    *config.Config
+)
 
 var rootCmdFlags struct {
-	rpc string
+	config string
 }
 
 var rootCmd = &cobra.Command{
@@ -31,7 +36,16 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(versionCmd, manCmd, allCmd, heightCmd, infoCmd, peersCmd, txPoolCmd)
 
-	rootCmd.PersistentFlags().StringVarP(&rootCmdFlags.rpc, "rpc", "r", "localhost:10102", "address of the node")
+	rootCmd.PersistentFlags().StringVarP(&rootCmdFlags.config, "config", "c", "", "path to the config file")
+	rootCmd.PersistentFlags().StringP("rpc", "r", "localhost:10102", "address of the node")
+
+	viper.BindPFlag("rpc", rootCmd.PersistentFlags().Lookup("rpc"))
+
+	var err error
+	cfg, err = config.Load(rootCmdFlags.config)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
 func Execute() error {
@@ -47,7 +61,7 @@ func prettyPrint(data any) {
 }
 
 func connectNode(cmd *cobra.Command, args []string) error {
-	c, err := dero.New("ws://" + rootCmdFlags.rpc + "/ws")
+	c, err := dero.New("ws://" + cfg.RPC + "/ws")
 	if err != nil {
 		return err
 	}
