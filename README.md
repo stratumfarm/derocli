@@ -1,4 +1,7 @@
 # Derocli
+[![lint](https://github.com/stratumfarm/derocli/actions/workflows/lint.yml/badge.svg)](https://github.com/stratumfarm/derocli/actions/workflows/lint.yml)
+[![goreleaser](https://github.com/stratumfarm/derocli/actions/workflows/release.yml/badge.svg)](https://github.com/stratumfarm/derocli/actions/workflows/release.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/stratumfarm/derocli)](https://goreportcard.com/report/github.com/stratumfarm/derocli)
 
 ## About
 
