@@ -33,11 +33,11 @@ func all(cmd *cobra.Command, args []string) error {
 	}
 	prettyPrint(info)
 
-	peers, err := client.GetPeers(ctx)
+	/* peers, err := client.GetPeers(ctx)
 	if err != nil {
 		return err
 	}
-	prettyPrint(peers)
+	prettyPrint(peers) */
 
 	txPool, err := client.GetTxPool(ctx)
 	if err != nil {

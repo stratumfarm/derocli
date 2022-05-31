@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"context"
-
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +13,10 @@ var peersCmd = &cobra.Command{
 }
 
 func peers(cmd *cobra.Command, args []string) error {
-	info, err := client.GetPeers(context.Background())
+	/* info, err := client.GetPeers(context.Background())
 	if err != nil {
 		return err
 	}
-	prettyPrint(info)
+	prettyPrint(info) */
 	return nil
 }
