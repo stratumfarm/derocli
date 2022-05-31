@@ -18,7 +18,6 @@ var allCmd = &cobra.Command{
 }
 
 func all(cmd *cobra.Command, args []string) error {
-
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
