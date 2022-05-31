@@ -38,7 +38,7 @@ builds:
     env:
       - CGO_ENABLED=0
     main: ./main.go
-    binary: '{{ with .Var.binary_name }}{{ . }}{{ else }}{{ .ProjectName }}{{ end }}'
+    binary: derocli
     ldflags: -s -w -X github.com/stratumfarm/derocli/internal/version.Version={{ .Version }} -X github.com/stratumfarm/derocli/internal/version.Commit={{ .Commit }} -X github.com/stratumfarm/derocli/internal/version.Date={{ .Date }} -X github.com/stratumfarm/derocli/internal/version.BuiltBy=goreleas
     flags: 
       - -trimpath
