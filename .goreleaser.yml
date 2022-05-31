@@ -1,26 +1,4 @@
 ---
-variables:
-  main: "./main.go"
-  binary_name: "derocli"
-  description: "a cli tool to fetch information from a dero rpc node"
-  github_url: "github.com/stratumfarm/derocli"
-  maintainer: "stratumfarm <pool@stratum.farm>"
-  license: "MIT"
-  homepage: "https://stratum.farm"
-  aur_package: |-
-      # bin
-      install -Dm755 "./derocli" "${pkgdir}/usr/bin/derocli"
-      # license
-      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/derocli/LICENSE"
-      # completions
-      mkdir -p "${pkgdir}/usr/share/bash-completion/completions/"
-      mkdir -p "${pkgdir}/usr/share/zsh/site-functions/"
-      mkdir -p "${pkgdir}/usr/share/fish/vendor_completions.d/"
-      install -Dm644 "./completions/derocli.bash" "${pkgdir}/usr/share/bash-completion/completions/derocli"
-      install -Dm644 "./completions/derocli.zsh" "${pkgdir}/usr/share/zsh/site-functions/_derocli"
-      install -Dm644 "./completions/derocli.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/derocli.fish"
-      # man pages
-      install -Dm644 "./manpages/derocli.1.gz" "${pkgdir}/usr/share/man/man1/derocli.1.gz"
 
 before:
   hooks:
@@ -32,9 +10,9 @@ builds:
     id: default
     env:
       - CGO_ENABLED=0
-    main: '{{ .Var.main }}'
-    binary: '{{ .Var.binary_name }}'
-    ldflags: -s -w -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.Version={{ .Version }} -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.Commit={{ .Commit }} -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.Date={{ .Date }} -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.BuiltBy=goreleaser
+    main: ./main.go
+    binary: derocli
+    ldflags: -s -w -X github.com/stratumfarm/derocli/internal/version.Version={{ .Version }} -X github.com/stratumfarm/derocli/internal/version.Commit={{ .Commit }} -X github.com/stratumfarm/derocli/internal/version.Date={{ .Date }} -X github.com/stratumfarm/derocli/internal/version.BuiltBy=goreleaser
     flags:
       - -trimpath
     goos:
@@ -59,9 +37,9 @@ builds:
     id: bsd
     env:
       - CGO_ENABLED=0
-    main: '{{ .Var.main }}'
+    main: ./main.go
     binary: '{{ with .Var.binary_name }}{{ . }}{{ else }}{{ .ProjectName }}{{ end }}'
-    ldflags: -s -w -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.Version={{ .Version }} -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.Commit={{ .Commit }} -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.Date={{ .Date }} -X github.com/stratumfarm/{{ .Var.binary_name }}/internal/version.BuiltBy=goreleas
+    ldflags: -s -w -X github.com/stratumfarm/derocli/internal/version.Version={{ .Version }} -X github.com/stratumfarm/derocli/internal/version.Commit={{ .Commit }} -X github.com/stratumfarm/derocli/internal/version.Date={{ .Date }} -X github.com/stratumfarm/derocli/internal/version.BuiltBy=goreleas
     flags: 
       - -trimpath
     goos:
@@ -72,7 +50,7 @@ builds:
 
 archives:
   - 
-    name_template: "{{ .Var.binary_name }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}-{{ .Mips }}{{ end }}"
+    name_template: "derocli-v{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}-{{ .Mips }}{{ end }}"
     builds:
       - default
       - bsd
@@ -89,16 +67,16 @@ archives:
       - completions
 
 checksum:
-  name_template: 'checksums.txt'
+  name_template: checksums.txt
 
 nfpms:
   - 
-    file_name_template: "{{ .Var.binary_name }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}-{{ .Mips }}{{ end }}"
+    file_name_template: "derocli-v{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}-{{ .Mips }}{{ end }}"
     vendor: stratumfarm
-    homepage: '{{ .Var.homepage }}'
-    maintainer: '{{ .Var.maintainer }}'
-    description: '{{ .Var.description }}'
-    license: '{{ .Var.license }}'
+    homepage: https://stratum.farm
+    maintainer: stratumfarm <pool@stratum.farm>
+    description: a cli tool to fetch information from a dero rpc node
+    license: MIT
     formats:
       - apk
       - deb
@@ -106,15 +84,28 @@ nfpms:
 
 aurs:
   -
-    name: '{{ .Var.binary_name }}-bin'
-    homepage: '{{ .Var.homepage }}'
-    description: '{{ .Var.description }}'
+    name: derocli-bin
+    homepage: https://stratum.farm
+    description: a cli tool to fetch information from a dero rpc node
     maintainers:
-      - '{{ .Var.maintainer }}'
-    license: '{{ .Var.license }}'
+      - stratumfarm <pool@stratum.farm>
+    license: MIT
     private_key: '{{ .Env.AUR_KEY }}'
-    git_url: 'ssh://aur@aur.archlinux.org/{{ .Var.binary_name }}-bin.git'
-    package: '{{ .Var.aur_package }}'
+    git_url: ssh://aur@aur.archlinux.org/derocli-bin.git
+    package: |-
+      # bin
+      install -Dm755 "./derocli" "${pkgdir}/usr/bin/derocli"
+      # license
+      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/derocli/LICENSE"
+      # completions
+      mkdir -p "${pkgdir}/usr/share/bash-completion/completions/"
+      mkdir -p "${pkgdir}/usr/share/zsh/site-functions/"
+      mkdir -p "${pkgdir}/usr/share/fish/vendor_completions.d/"
+      install -Dm644 "./completions/derocli.bash" "${pkgdir}/usr/share/bash-completion/completions/derocli"
+      install -Dm644 "./completions/derocli.zsh" "${pkgdir}/usr/share/zsh/site-functions/_derocli"
+      install -Dm644 "./completions/derocli.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/derocli.fish"
+      # man pages
+      install -Dm644 "./manpages/derocli.1.gz" "${pkgdir}/usr/share/man/man1/derocli.1.gz"
 
 
 source:
@@ -131,7 +122,7 @@ changelog:
       - "^docs:"
       - "^test:"
   groups:
-    - title: 'New Features'
+    - title: New Features
       regexp: "^.*feat[(\\w)]*:+.*$"
       order: 0
     - title: 'Bug fixes'
