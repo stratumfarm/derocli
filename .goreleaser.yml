@@ -25,6 +25,8 @@ variables:
 before:
   hooks:
     - go mod tidy
+    - ./scripts/completions.sh
+    - ./scripts/manpages.sh
 
 builds:
   - 
