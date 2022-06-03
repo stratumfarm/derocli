@@ -1,10 +1,15 @@
 package console
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/muesli/termenv"
 )
+
+var requestTimeout = 5 * time.Second
 
 type Cmd struct {
 	Name        string
@@ -20,9 +25,6 @@ func (c *Cmd) Match(cmd string) bool {
 }
 
 func (c *Cmd) Handle(cmd string) error {
-	if c.Console.isPipe && c.IgnorePipe {
-		return nil
-	}
 	return c.Handler(c.Console, cmd)
 }
 
@@ -31,7 +33,7 @@ var HelpCmd = &Cmd{
 	Description: "Show the help",
 	Matcher:     func(cmd string) bool { return cmd == "help" },
 	Handler: func(c *Console, cmd string) error {
-		fmt.Fprintln(c.stdout, helpView(c))
+		fmt.Println(helpView(c))
 		return nil
 	},
 }
@@ -52,7 +54,7 @@ var QuitCmd = &Cmd{
 	IgnorePipe:  true,
 	Matcher:     func(cmd string) bool { return cmd == "quit" || cmd == "exit" },
 	Handler: func(c *Console, cmd string) error {
-		c.cancel()
+		c.Close()
 		return nil
 	},
 }
@@ -66,4 +68,26 @@ var ClearCmd = &Cmd{
 		termenv.ClearScreen()
 		return nil
 	},
+}
+
+var InfoCmd = &Cmd{
+	Name:        "info",
+	Description: "Get info about the dero node",
+	Matcher:     func(cmd string) bool { return cmd == "info" },
+	Handler:     handleInfoCmd,
+}
+
+func handleInfoCmd(c *Console, cmd string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	defer cancel()
+	info, err := c.client.GetInfo(ctx)
+	if err != nil {
+		return err
+	}
+	data, err := json.MarshalIndent(info, "", " ")
+	if err != nil {
+		return err
+	}
+	fmt.Println(string(data))
+	return nil
 }

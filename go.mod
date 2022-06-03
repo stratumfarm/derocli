@@ -3,12 +3,14 @@ module github.com/stratumfarm/derocli
 go 1.18
 
 require (
+	github.com/charmbracelet/lipgloss v0.5.0
 	github.com/creachadair/jrpc2 v0.41.0
 	github.com/deroproject/derohe v0.0.0-20220523042906-db7eba4be8ae
 	github.com/gorilla/websocket v1.5.0
 	github.com/muesli/mango-cobra v1.1.0
 	github.com/muesli/roff v0.1.0
-	github.com/muesli/termenv v0.11.0
+	github.com/muesli/termenv v0.11.1-0.20220204035834-5ac8409525e0
+	github.com/peterh/liner v1.2.2
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
 )
@@ -31,6 +33,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/muesli/mango v0.1.0 // indirect
 	github.com/muesli/mango-pflag v0.1.0 // indirect
+	github.com/muesli/reflow v0.2.1-0.20210115123740-9e1d0d53df68 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

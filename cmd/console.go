@@ -24,17 +24,22 @@ func runConsole(cmd *cobra.Command, args []string) error {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	c, err := console.New(console.WithClient(client))
+	ctx, cancel := context.WithCancel(cmd.Context())
+	defer cancel()
+
+	c, err := console.New(
+		console.WithClient(client),
+		console.WithContext(ctx),
+	)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	ctx, cancel := context.WithCancel(cmd.Context())
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		if err := c.Start(ctx); err != nil {
+		if err := c.Start(); err != nil {
 			log.Fatalln(err)
 		}
 	}()
