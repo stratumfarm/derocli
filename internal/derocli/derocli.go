@@ -54,5 +54,6 @@ func (c *Console) getCmds() []*console.Cmd {
 		c.InfoCmd(),
 		c.PeersCmd(),
 		c.ConnectionsCmd(),
+		c.HeightCmd(),
 	}
 }
