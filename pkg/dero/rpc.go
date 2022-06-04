@@ -81,5 +81,5 @@ func (c *Client) GetConnections(ctx context.Context) (*derorpc.GetConnectionResu
 	if err := c.rpc.CallResult(context.Background(), "DERO.GetConnections", nil, res); err != nil {
 		return nil, fmt.Errorf("failed to call: %w", err)
 	}
-	return nil, nil
+	return res, nil
 }

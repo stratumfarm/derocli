@@ -17,6 +17,7 @@ var Cmds = []*Cmd{
 	ClearCmd,
 	InfoCmd,
 	PeersCmd,
+	ConnectionsCmd,
 }
 
 type Cmd struct {
@@ -120,7 +121,7 @@ func handleInfoCmd(c *Console, cmd string) error {
 var PeersCmd = &Cmd{
 	Name:        "peers",
 	Aliases:     []string{"get_peers"},
-	Description: "Get info about the peers",
+	Description: "Get all peers connected to the dero node",
 	Handler:     handlePeersCmd,
 }
 
@@ -132,6 +133,28 @@ func handlePeersCmd(c *Console, cmd string) error {
 		return err
 	}
 	data, err := json.MarshalIndent(peers, "", " ")
+	if err != nil {
+		return err
+	}
+	fmt.Println(string(data))
+	return nil
+}
+
+var ConnectionsCmd = &Cmd{
+	Name:        "connections",
+	Aliases:     []string{"get_connections"},
+	Description: "Get all connections from the dero node",
+	Handler:     handleConnectionsCmd,
+}
+
+func handleConnectionsCmd(c *Console, cmd string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	defer cancel()
+	connections, err := c.client.GetConnections(ctx)
+	if err != nil {
+		return err
+	}
+	data, err := json.MarshalIndent(connections.Connections, "", " ")
 	if err != nil {
 		return err
 	}
