@@ -22,7 +22,7 @@ func New(ctx context.Context, client *dero.Client) (*Console, error) {
 	}
 	con, err := console.New(
 		console.WithWelcomeMsg("Welcome to derocli!"),
-		console.WithHandleCtrlC(true),
+		console.WithHandleCtrlC(false),
 		console.WithContext(ctx),
 	)
 	if err != nil {
