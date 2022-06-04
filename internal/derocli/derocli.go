@@ -2,7 +2,6 @@ package derocli
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"time"
 
@@ -56,76 +55,4 @@ func (c *Console) getCmds() []*console.Cmd {
 		c.PeersCmd(),
 		c.ConnectionsCmd(),
 	}
-}
-
-func (c *Console) InfoCmd() *console.Cmd {
-	return &console.Cmd{
-		Name:        "info",
-		Aliases:     []string{"get_info"},
-		Description: "Get info about the dero node",
-		Handler:     c.handleInfoCmd,
-	}
-}
-
-func (c *Console) handleInfoCmd(con *console.Console, cmd string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
-	defer cancel()
-	info, err := c.deroClient.GetInfo(ctx)
-	if err != nil {
-		return err
-	}
-	data, err := json.MarshalIndent(info, "", " ")
-	if err != nil {
-		return err
-	}
-	fmt.Println(string(data))
-	return nil
-}
-
-func (c *Console) PeersCmd() *console.Cmd {
-	return &console.Cmd{
-		Name:        "peers",
-		Aliases:     []string{"get_peers"},
-		Description: "Get all peers connected to the dero node",
-		Handler:     c.handlePeersCmd,
-	}
-}
-
-func (c *Console) handlePeersCmd(con *console.Console, cmd string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
-	defer cancel()
-	peers, err := c.deroClient.GetPeers(ctx)
-	if err != nil {
-		return err
-	}
-	data, err := json.MarshalIndent(peers, "", " ")
-	if err != nil {
-		return err
-	}
-	fmt.Println(string(data))
-	return nil
-}
-
-func (c *Console) ConnectionsCmd() *console.Cmd {
-	return &console.Cmd{
-		Name:        "connections",
-		Aliases:     []string{"get_connections"},
-		Description: "Get all connections from the dero node",
-		Handler:     c.handleConnectionsCmd,
-	}
-}
-
-func (c *Console) handleConnectionsCmd(con *console.Console, cmd string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
-	defer cancel()
-	connections, err := c.deroClient.GetConnections(ctx)
-	if err != nil {
-		return err
-	}
-	data, err := json.MarshalIndent(connections.Connections, "", " ")
-	if err != nil {
-		return err
-	}
-	fmt.Println(string(data))
-	return nil
 }
