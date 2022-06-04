@@ -56,5 +56,6 @@ func (c *Console) getCmds() []*console.Cmd {
 		c.ConnectionsCmd(),
 		c.HeightCmd(),
 		c.BlockHeaderByTopoHeight(),
+		c.TxPoolCmd(),
 	}
 }
