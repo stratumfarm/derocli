@@ -27,7 +27,7 @@ func (c *Console) blockHeaderByTopoHeightCmd(con *console.Console, args []string
 	if err != nil {
 		return err
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	ctx, cancel := context.WithTimeout(con.Ctx(), requestTimeout)
 	defer cancel()
 	blockHeader, err := c.deroClient.GetBlockHeaderByTopoHeight(ctx, height)
 	if err != nil {

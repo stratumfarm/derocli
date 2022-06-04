@@ -18,7 +18,7 @@ func (c *Console) PeersCmd() *console.Cmd {
 }
 
 func (c *Console) handlePeersCmd(con *console.Console, args []string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	ctx, cancel := context.WithTimeout(con.Ctx(), requestTimeout)
 	defer cancel()
 	peers, err := c.deroClient.GetPeers(ctx)
 	if err != nil {

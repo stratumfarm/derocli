@@ -18,7 +18,7 @@ func (c *Console) HeightCmd() *console.Cmd {
 }
 
 func (c *Console) heightCmd(con *console.Console, args []string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	ctx, cancel := context.WithTimeout(con.Ctx(), requestTimeout)
 	defer cancel()
 	height, err := c.deroClient.GetHeight(ctx)
 	if err != nil {

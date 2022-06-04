@@ -18,7 +18,7 @@ func (c *Console) ConnectionsCmd() *console.Cmd {
 }
 
 func (c *Console) handleConnectionsCmd(con *console.Console, args []string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	ctx, cancel := context.WithTimeout(con.Ctx(), requestTimeout)
 	defer cancel()
 	connections, err := c.deroClient.GetConnections(ctx)
 	if err != nil {
