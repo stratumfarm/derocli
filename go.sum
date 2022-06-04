@@ -164,6 +164,8 @@ github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:
 github.com/ianlancetaylor/demangle v0.0.0-20200824232613-28f6c0f3b639/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/inconshreveable/mousetrap v1.0.0 h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
+github.com/jon4hz/console v0.1.1 h1:OvJXA9S0pMfqtGPu93XGRv7fIbzKV8Z2XI22M42Cz68=
+github.com/jon4hz/console v0.1.1/go.mod h1:jbgPOODlMTW1IxpQpVzk4rcWMYnEneyaeCPdmk3Vd0w=
 github.com/json-iterator/go v1.1.9/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
@@ -239,8 +241,6 @@ github.com/spf13/pflag v1.0.5 h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=
 github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 github.com/spf13/viper v1.12.0 h1:CZ7eSOd3kZoaYDLbXnmzgQI5RlciuXBMA+18HwHRfZQ=
 github.com/spf13/viper v1.12.0/go.mod h1:b6COn30jlNxbm/V2IqWiNWkJ+vZNiMNksliPCiuKtSI=
-github.com/stratumfarm/derohe v0.0.0-20220603195355-37b0a28e4dbe h1:C38QIxJxtelZbXCSRafAXjxI/EXS7OmNlWb7KbKoAxc=
-github.com/stratumfarm/derohe v0.0.0-20220603195355-37b0a28e4dbe/go.mod h1:1fq6tvob4JwDQhdxuUX81DdlID1wYkx4TyJH2ve0J9A=
 github.com/stratumfarm/derohe v0.0.0-20220603233726-87b22b6757f8 h1:5iETeDNBTrIZj/RecN/WfRtCaanhXlTdfYyR4q2I/18=
 github.com/stratumfarm/derohe v0.0.0-20220603233726-87b22b6757f8/go.mod h1:1fq6tvob4JwDQhdxuUX81DdlID1wYkx4TyJH2ve0J9A=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

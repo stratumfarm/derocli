@@ -3,13 +3,11 @@ module github.com/stratumfarm/derocli
 go 1.18
 
 require (
-	github.com/charmbracelet/lipgloss v0.5.0
 	github.com/creachadair/jrpc2 v0.41.0
 	github.com/gorilla/websocket v1.5.0
+	github.com/jon4hz/console v0.1.1
 	github.com/muesli/mango-cobra v1.1.0
 	github.com/muesli/roff v0.1.0
-	github.com/muesli/termenv v0.11.1-0.20220204035834-5ac8409525e0
-	github.com/peterh/liner v1.2.2
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
 	github.com/stratumfarm/derohe v0.0.0-20220603233726-87b22b6757f8
@@ -18,6 +16,7 @@ require (
 require (
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/caarlos0/env/v6 v6.9.2 // indirect
+	github.com/charmbracelet/lipgloss v0.5.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deroproject/graviton v0.0.0-20220130070622-2c248a53b2e1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
@@ -34,8 +33,10 @@ require (
 	github.com/muesli/mango v0.1.0 // indirect
 	github.com/muesli/mango-pflag v0.1.0 // indirect
 	github.com/muesli/reflow v0.2.1-0.20210115123740-9e1d0d53df68 // indirect
+	github.com/muesli/termenv v0.11.1-0.20220204035834-5ac8409525e0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
+	github.com/peterh/liner v1.2.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
@@ -56,3 +57,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.0 // indirect
 	nhooyr.io/websocket v1.8.7 // indirect
 )
+
+//replace github.com/jon4hz/console => ../../console

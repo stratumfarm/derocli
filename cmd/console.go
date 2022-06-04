@@ -9,7 +9,7 @@ import (
 	"syscall"
 
 	"github.com/spf13/cobra"
-	"github.com/stratumfarm/derocli/internal/console"
+	"github.com/stratumfarm/derocli/internal/derocli"
 )
 
 var consoleCmd = &cobra.Command{
@@ -27,10 +27,7 @@ func runConsole(cmd *cobra.Command, args []string) error {
 	ctx, cancel := context.WithCancel(cmd.Context())
 	defer cancel()
 
-	c, err := console.New(
-		console.WithClient(client),
-		console.WithContext(ctx),
-	)
+	c, err := derocli.New(ctx, client)
 	if err != nil {
 		log.Fatalln(err)
 	}
