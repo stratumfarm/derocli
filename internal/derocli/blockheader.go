@@ -23,9 +23,9 @@ func (c *Console) blockHeaderByTopoHeightCmd(con *console.Console, args []string
 	if len(args) != 1 {
 		return errors.New("exactly one arg is required")
 	}
-	height := uint64(0)
-	if len(args) > 0 {
-		height, _ = strconv.ParseUint(args[0], 10, 64)
+	height, err := strconv.ParseUint(args[0], 10, 64)
+	if err != nil {
+		return err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
 	defer cancel()
