@@ -21,6 +21,7 @@ var Cmds = []*Cmd{
 
 type Cmd struct {
 	Name        string
+	Aliases     []string
 	Description string
 	IgnorePipe  bool
 	Matcher     func(cmd string) bool
@@ -28,8 +29,26 @@ type Cmd struct {
 	Console     *Console
 }
 
+func (c *Cmd) defaultMatcher(cmd string) bool {
+	if cmd == c.Name {
+		return true
+	}
+	for _, alias := range c.Aliases {
+		if cmd == alias {
+			return true
+		}
+	}
+	return false
+}
+
 func (c *Cmd) Match(cmd string) bool {
-	return c.Matcher(cmd)
+	if c.defaultMatcher(cmd) {
+		return true
+	}
+	if c.Matcher != nil {
+		return c.Matcher(cmd)
+	}
+	return false
 }
 
 func (c *Cmd) Handle(cmd string) error {
@@ -39,7 +58,6 @@ func (c *Cmd) Handle(cmd string) error {
 var HelpCmd = &Cmd{
 	Name:        "help",
 	Description: "Show the help",
-	Matcher:     func(cmd string) bool { return cmd == "help" },
 	Handler: func(c *Console, cmd string) error {
 		fmt.Println(helpView(c))
 		return nil
@@ -58,9 +76,9 @@ func helpView(c *Console) string {
 
 var QuitCmd = &Cmd{
 	Name:        "quit",
+	Aliases:     []string{"exit"},
 	Description: "Quit the console",
 	IgnorePipe:  true,
-	Matcher:     func(cmd string) bool { return cmd == "quit" || cmd == "exit" },
 	Handler: func(c *Console, cmd string) error {
 		c.Close()
 		return nil
@@ -71,7 +89,6 @@ var ClearCmd = &Cmd{
 	Name:        "clear",
 	Description: "Clear the screen",
 	IgnorePipe:  true,
-	Matcher:     func(cmd string) bool { return cmd == "clear" },
 	Handler: func(c *Console, cmd string) error {
 		termenv.ClearScreen()
 		return nil
@@ -80,8 +97,8 @@ var ClearCmd = &Cmd{
 
 var InfoCmd = &Cmd{
 	Name:        "info",
+	Aliases:     []string{"get_info"},
 	Description: "Get info about the dero node",
-	Matcher:     func(cmd string) bool { return cmd == "info" },
 	Handler:     handleInfoCmd,
 }
 
@@ -102,8 +119,8 @@ func handleInfoCmd(c *Console, cmd string) error {
 
 var PeersCmd = &Cmd{
 	Name:        "peers",
+	Aliases:     []string{"get_peers"},
 	Description: "Get info about the peers",
-	Matcher:     func(cmd string) bool { return cmd == "peers" },
 	Handler:     handlePeersCmd,
 }
 

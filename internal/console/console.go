@@ -86,6 +86,12 @@ func (c *Console) setCompleter() {
 		for _, n := range c.cmds {
 			if strings.HasPrefix(n.Name, strings.ToLower(line)) {
 				s = append(s, n.Name)
+				continue
+			}
+			for _, a := range n.Aliases {
+				if strings.HasPrefix(a, strings.ToLower(line)) {
+					s = append(s, a)
+				}
 			}
 		}
 		return
@@ -110,7 +116,7 @@ func (c *Console) read() error {
 				if err := c.handleInput(in); err != nil {
 					fmt.Println(styleError.Render(err.Error()))
 				}
-				if QuitCmd.Matcher(in) { // special case to prevent an unnecessary newline
+				if QuitCmd.Match(in) { // special case to prevent an unnecessary newline
 					break
 				}
 			} else if err == liner.ErrPromptAborted {
