@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 
 	"github.com/spf13/cobra"
@@ -32,20 +31,24 @@ func runConsole(cmd *cobra.Command, args []string) error {
 		log.Fatalln(err)
 	}
 
-	var wg sync.WaitGroup
-	wg.Add(1)
+	errc := make(chan error, 1)
 	go func() {
-		defer wg.Done()
+		defer c.Close()
+		defer close(errc)
 		if err := c.Start(); err != nil {
-			log.Fatalln(err)
+			errc <- err
 		}
 	}()
-	defer c.Close()
-	go func() {
-		<-done
+
+	select {
+	case <-done:
 		cancel()
-	}()
-	wg.Wait()
+	case err, ok := <-errc:
+		if !ok {
+			break
+		}
+		log.Fatalln(err)
+	}
 
 	return nil
 }
