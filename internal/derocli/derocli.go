@@ -55,5 +55,6 @@ func (c *Console) getCmds() []*console.Cmd {
 		c.PeersCmd(),
 		c.ConnectionsCmd(),
 		c.HeightCmd(),
+		c.BlockHeaderByTopoHeight(),
 	}
 }

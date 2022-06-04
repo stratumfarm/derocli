@@ -83,3 +83,14 @@ func (c *Client) GetConnections(ctx context.Context) (*derorpc.GetConnectionResu
 	}
 	return res, nil
 }
+
+func (c *Client) GetBlockHeaderByTopoHeight(ctx context.Context, height uint64) (*derorpc.GetBlockHeaderByHeight_Result, error) {
+	res := new(derorpc.GetBlockHeaderByHeight_Result)
+	req := derorpc.GetBlockHeaderByTopoHeight_Params{
+		TopoHeight: height,
+	}
+	if err := c.rpc.CallResult(context.Background(), "DERO.GetBlockHeaderByTopoHeight", req, res); err != nil {
+		return nil, fmt.Errorf("failed to call: %w", err)
+	}
+	return res, nil
+}
