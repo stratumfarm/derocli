@@ -102,6 +102,10 @@ func (c *Console) read() error {
 		defer close(doneC)
 		for {
 			if in, err := c.liner.Prompt("> "); err == nil {
+				in = strings.TrimSpace(in)
+				if in == "" {
+					continue
+				}
 				c.liner.AppendHistory(in)
 				if err := c.handleInput(in); err != nil {
 					fmt.Println(styleError.Render(err.Error()))
