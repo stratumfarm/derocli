@@ -11,6 +11,14 @@ import (
 
 var requestTimeout = 5 * time.Second
 
+var Cmds = []*Cmd{
+	HelpCmd,
+	QuitCmd,
+	ClearCmd,
+	InfoCmd,
+	PeersCmd,
+}
+
 type Cmd struct {
 	Name        string
 	Description string
@@ -85,6 +93,28 @@ func handleInfoCmd(c *Console, cmd string) error {
 		return err
 	}
 	data, err := json.MarshalIndent(info, "", " ")
+	if err != nil {
+		return err
+	}
+	fmt.Println(string(data))
+	return nil
+}
+
+var PeersCmd = &Cmd{
+	Name:        "peers",
+	Description: "Get info about the peers",
+	Matcher:     func(cmd string) bool { return cmd == "peers" },
+	Handler:     handlePeersCmd,
+}
+
+func handlePeersCmd(c *Console, cmd string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	defer cancel()
+	peers, err := c.client.GetPeers(ctx)
+	if err != nil {
+		return err
+	}
+	data, err := json.MarshalIndent(peers, "", " ")
 	if err != nil {
 		return err
 	}

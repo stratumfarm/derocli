@@ -7,9 +7,9 @@ import (
 
 	"github.com/creachadair/jrpc2"
 	"github.com/creachadair/jrpc2/channel"
-	"github.com/deroproject/derohe/glue/rwc"
-	derorpc "github.com/deroproject/derohe/rpc"
 	"github.com/gorilla/websocket"
+	"github.com/stratumfarm/derohe/glue/rwc"
+	derorpc "github.com/stratumfarm/derohe/rpc"
 )
 
 type Client struct {
@@ -60,18 +60,26 @@ func (c *Client) GetInfo(ctx context.Context) (*derorpc.GetInfo_Result, error) {
 	return res, nil
 }
 
-/* func (c *Client) GetPeers(ctx context.Context) (*derop2p.PeersInfo, error) {
-	res := new(derop2p.PeersInfo)
+func (c *Client) GetPeers(ctx context.Context) (*derorpc.GetPeersResult, error) {
+	res := new(derorpc.GetPeersResult)
 	if err := c.rpc.CallResult(context.Background(), "DERO.GetPeers", nil, res); err != nil {
 		return nil, fmt.Errorf("failed to call: %w", err)
 	}
 	return res, nil
-} */
+}
 
-func (c *Client) GetTxPool(ctx context.Context) (derorpc.GetTxPool_Result, error) {
+func (c *Client) GetTxPool(ctx context.Context) (*derorpc.GetTxPool_Result, error) {
 	res := new(derorpc.GetTxPool_Result)
 	if err := c.rpc.CallResult(context.Background(), "DERO.GetTxPool", nil, res); err != nil {
-		return *res, fmt.Errorf("failed to call: %w", err)
+		return nil, fmt.Errorf("failed to call: %w", err)
 	}
-	return *res, nil
+	return res, nil
+}
+
+func (c *Client) GetConnections(ctx context.Context) (*derorpc.GetConnectionResult, error) {
+	res := new(derorpc.GetConnectionResult)
+	if err := c.rpc.CallResult(context.Background(), "DERO.GetConnections", nil, res); err != nil {
+		return nil, fmt.Errorf("failed to call: %w", err)
+	}
+	return nil, nil
 }

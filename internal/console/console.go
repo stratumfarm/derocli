@@ -52,10 +52,7 @@ func New(opts ...Opts) (*Console, error) {
 	c.cancel = cancel
 
 	c.registerCommands(
-		HelpCmd,
-		QuitCmd,
-		ClearCmd,
-		InfoCmd,
+		Cmds...,
 	)
 	c.setCompleter()
 

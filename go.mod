@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/charmbracelet/lipgloss v0.5.0
 	github.com/creachadair/jrpc2 v0.41.0
-	github.com/deroproject/derohe v0.0.0-20220523042906-db7eba4be8ae
 	github.com/gorilla/websocket v1.5.0
 	github.com/muesli/mango-cobra v1.1.0
 	github.com/muesli/roff v0.1.0
@@ -13,6 +12,7 @@ require (
 	github.com/peterh/liner v1.2.2
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
+	github.com/stratumfarm/derohe v0.0.0-20220603233726-87b22b6757f8
 )
 
 require (
