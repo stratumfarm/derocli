@@ -17,7 +17,7 @@ func (c *Console) ConnectionsCmd() *console.Cmd {
 	}
 }
 
-func (c *Console) handleConnectionsCmd(con *console.Console, cmd string) error {
+func (c *Console) handleConnectionsCmd(con *console.Console, args []string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
 	defer cancel()
 	connections, err := c.deroClient.GetConnections(ctx)

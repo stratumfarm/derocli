@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/creachadair/jrpc2 v0.41.0
 	github.com/gorilla/websocket v1.5.0
-	github.com/jon4hz/console v0.1.1
+	github.com/jon4hz/console v0.2.0
 	github.com/muesli/mango-cobra v1.1.0
 	github.com/muesli/roff v0.1.0
 	github.com/spf13/cobra v1.4.0

@@ -17,7 +17,7 @@ func (c *Console) InfoCmd() *console.Cmd {
 	}
 }
 
-func (c *Console) handleInfoCmd(con *console.Console, cmd string) error {
+func (c *Console) handleInfoCmd(con *console.Console, args []string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
 	defer cancel()
 	info, err := c.deroClient.GetInfo(ctx)
