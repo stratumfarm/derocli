@@ -33,8 +33,8 @@ func runConsole(cmd *cobra.Command, args []string) error {
 
 	errc := make(chan error, 1)
 	go func() {
-		defer c.Close()
 		defer close(errc)
+		defer c.Close()
 		if err := c.Start(); err != nil {
 			errc <- err
 		}
