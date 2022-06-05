@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"context"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -15,9 +15,9 @@ var infoCmd = &cobra.Command{
 }
 
 func info(cmd *cobra.Command, args []string) error {
-	info, err := client.GetInfo(context.Background())
+	info, err := client.GetInfo(cmd.Context())
 	if err != nil {
-		return err
+		log.Fatalln(err)
 	}
 	prettyPrint(info)
 	return nil
