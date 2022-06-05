@@ -13,10 +13,10 @@ var peersCmd = &cobra.Command{
 }
 
 func peers(cmd *cobra.Command, args []string) error {
-	/* info, err := client.GetPeers(context.Background())
+	info, err := client.GetPeers(cmd.Context())
 	if err != nil {
 		return err
 	}
-	prettyPrint(info) */
+	prettyPrint(info)
 	return nil
 }
