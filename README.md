@@ -14,16 +14,19 @@ Usage:
   derocli [command]
 
 Available Commands:
-  all         Get all information from the node
   completion  Generate the autocompletion script for the specified shell
+  console     Start an interactive console
   height      Get the current height of the blockchain
   help        Help about any command
   info        Get information about the node
   peers       Get the connected peers from the node
+  txpool      Get the transaction pool
+  version     Print the version info
 
 Flags:
-  -r, --rpc string   address of the node (default "localhost:10102")
-  -h, --help          help for derocli
+  -c, --config string   path to the config file
+  -h, --help            help for derocli
+  -r, --rpc string      address of the node (default "localhost:10102")
 
 Use "derocli [command] --help" for more information about a command.
 ```

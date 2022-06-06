@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"context"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -15,9 +15,9 @@ var heightCmd = &cobra.Command{
 }
 
 func height(cmd *cobra.Command, args []string) error {
-	height, err := client.GetHeight(context.Background())
+	height, err := client.GetHeight(cmd.Context())
 	if err != nil {
-		return err
+		log.Fatalln(err)
 	}
 	prettyPrint(height)
 	return nil

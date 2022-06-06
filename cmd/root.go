@@ -34,7 +34,11 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(versionCmd, manCmd, allCmd, heightCmd, infoCmd, peersCmd, txPoolCmd)
+	rootCmd.AddCommand(
+		versionCmd, manCmd,
+		heightCmd, infoCmd, peersCmd,
+		txPoolCmd, consoleCmd,
+	)
 
 	rootCmd.PersistentFlags().StringVarP(&rootCmdFlags.config, "config", "c", "", "path to the config file")
 	rootCmd.PersistentFlags().StringP("rpc", "r", "localhost:10102", "address of the node")

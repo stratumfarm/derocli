@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"context"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -15,9 +15,9 @@ var txPoolCmd = &cobra.Command{
 }
 
 func txPool(cmd *cobra.Command, args []string) error {
-	txpool, err := client.GetTxPool(context.Background())
+	txpool, err := client.GetTxPool(cmd.Context())
 	if err != nil {
-		return err
+		log.Fatalln(err)
 	}
 	prettyPrint(txpool)
 	return nil
